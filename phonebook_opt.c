@@ -6,10 +6,13 @@
 entry *findName(char lastName[], entry *pHead)
 {
     /* TODO: implement */
-    return NULL;
+    
+    
+    return ;
 }
 
 entry *append(char lastName[], entry *e)
 {
+    entry *ptr = (entry*) malloc(sizeof(entry));
     return NULL;
 }
