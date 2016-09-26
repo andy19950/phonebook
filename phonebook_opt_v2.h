@@ -5,12 +5,13 @@
 
 /* TODO: After modifying the original version, uncomment the following
  * line to set OPT properly */
-// #define OPT 1
+#define OPT 1
 
 typedef struct __BOOK_INDEX_ENTRY {
     char lastName[MAX_LAST_NAME_SIZE];
-    struct __BOOK_INDEX_ENTRY *left, *right;
-    struct __PHONE_BOOK_ENTRY *detail;
+    //struct __BOOK_INDEX_ENTRY *left, *right;
+    //struct __PHONE_BOOK_ENTRY *detail;
+    struct __BOOK_INDEX_ENTRY *pNext;
 } entry;
 
 
@@ -26,7 +27,7 @@ typedef struct __PHONE_BOOK_ENTRY {
     char zip[5];
 };
 
-entry *findName(char lastName[], entry *pHead);
-entry *append(char lastName[], entry *e);
+entry *findName(char lastName[], entry **hash_table);
+entry **append(char lastName[], entry **hash_table);
 
 #endif
