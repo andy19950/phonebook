@@ -44,15 +44,16 @@ int main(int argc, char *argv[])
     }
 
     /* build the entry */
+
 #if OPT
     entry **pHead, **e;
     pHead = (entry**) malloc(sizeof(entry*) * table_size);
-//    printf("size of hash table : %d bytes\n", sizeof(entry*) * table_size);
+    printf("size of hash table : %d bytes\n", sizeof(entry*) * table_size);
     e = pHead;
 #else
     entry *pHead, *e;
     pHead = (entry *) malloc(sizeof(entry));
-//    printf("size of entry : %lu bytes\n", sizeof(entry));
+    printf("size of entry : %lu bytes\n", sizeof(entry));
     e = pHead;
     e->pNext = NULL;
 #endif
@@ -108,8 +109,8 @@ int main(int argc, char *argv[])
     fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);
     fclose(output);
 
-//    printf("execution time of append() : %lf sec\n", cpu_time1);
-//    printf("execution time of findName() : %lf sec\n", cpu_time2);
+    printf("execution time of append() : %lf sec\n", cpu_time1);
+    printf("execution time of findName() : %lf sec\n", cpu_time2);
 
     //if (pHead->pNext) free(pHead->pNext);
     free(pHead);

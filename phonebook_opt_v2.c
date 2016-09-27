@@ -19,7 +19,6 @@ unsigned int hash(char *name)
 /* FILL YOUR OWN IMPLEMENTATION HERE! */
 entry *findName(char lastName[], entry **hash_table)
 {
-    /* TODO: implement */
     int loc = hash(lastName);
     entry *ptr = hash_table[loc];
     while(strcmp(lastName, ptr->lastName))
