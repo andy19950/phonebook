@@ -1,14 +1,18 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "phonebook_opt_v2.h"
 
-int hash(char *name)
+unsigned int hash(char *name)
 {
-    int num=0;
-    for(int i=0; i<strlen(name); i++) {
-        num += (int) name[i];
+    unsigned int num=0;
+    for(int i=1; i<strlen(name); i++) {
+        num += (name[i]) ;
     }
-    return num % 1000;
+    num %= (TABLE_SIZE / 26);
+    num += (name[0] - 'a') * (TABLE_SIZE / 26);
+    return num % TABLE_SIZE;
 }
 
 
@@ -29,9 +33,12 @@ entry **append(char lastName[], entry **hash_table)
     e->pNext = NULL;
     strcpy(e->lastName, lastName);
     int loc = hash(lastName);
-    /*e->pNext = hash_table[loc];
-    hash_table[loc] = e;
-    */
+    
+/*  Version 1 append immediately  */
+//    e->pNext = hash_table[loc];
+//    hash_table[loc] = e;
+
+/*  Version 2 append at the end of lined list  */  
     if(hash_table[loc] == NULL)
         hash_table[loc] = e;
     else {
@@ -42,5 +49,3 @@ entry **append(char lastName[], entry **hash_table)
     }
     return hash_table;
 }
-
-

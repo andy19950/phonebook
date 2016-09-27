@@ -8,11 +8,6 @@
 
 #define DICT_FILE "./dictionary/words.txt"
 
-#if defined(OPT)
-int TABLE_SIZE = 1000;
-#else
-int TABLE_SIZE = 1;
-#endif
 
 static double diff_in_second(struct timespec t1, struct timespec t2)
 {
@@ -35,6 +30,12 @@ int main(int argc, char *argv[])
     struct timespec start, end;
     double cpu_time1, cpu_time2;
 
+#if defined(TABLE_SIZE)
+    int table_size = TABLE_SIZE;
+#else
+    int table_size = 1;
+#endif
+
     /* check file opening */
     fp = fopen(DICT_FILE, "r");
     if (fp == NULL) {
@@ -43,21 +44,22 @@ int main(int argc, char *argv[])
     }
 
     /* build the entry */
-#if defined(OPT)
+#if OPT
     entry **pHead, **e;
-    pHead = (entry**) malloc(sizeof(entry*) * TABLE_SIZE);
+    pHead = (entry**) malloc(sizeof(entry*) * table_size);
+//    printf("size of hash table : %d bytes\n", sizeof(entry*) * table_size);
     e = pHead;
 #else
     entry *pHead, *e;
     pHead = (entry *) malloc(sizeof(entry));
-    printf("size of entry : %lu bytes\n", sizeof(entry));
+//    printf("size of entry : %lu bytes\n", sizeof(entry));
     e = pHead;
     e->pNext = NULL;
 #endif
 
 
 #if defined(__GNUC__)
-    __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry) * TABLE_SIZE);
+    __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry) * table_size);
 #endif
 
 
@@ -69,6 +71,7 @@ int main(int argc, char *argv[])
         i = 0;
         e = append(line, e);
     }
+
     clock_gettime(CLOCK_REALTIME, &end);
     cpu_time1 = diff_in_second(start, end);
 
@@ -86,7 +89,7 @@ int main(int argc, char *argv[])
 
 
 #if defined(__GNUC__)
-    __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry) * TABLE_SIZE);
+    __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry) * table_size);
 #endif
     /* compute the execution time */
     clock_gettime(CLOCK_REALTIME, &start);
@@ -105,11 +108,11 @@ int main(int argc, char *argv[])
     fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);
     fclose(output);
 
-    printf("execution time of append() : %lf sec\n", cpu_time1);
-    printf("execution time of findName() : %lf sec\n", cpu_time2);
+//    printf("execution time of append() : %lf sec\n", cpu_time1);
+//    printf("execution time of findName() : %lf sec\n", cpu_time2);
 
     //if (pHead->pNext) free(pHead->pNext);
-    //free(pHead);
-
+    free(pHead);
+    
     return 0;
 }

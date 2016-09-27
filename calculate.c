@@ -59,8 +59,8 @@ int main(void)
         opt_sum2_a += opt2_a;
         opt_sum2_f += opt2_f;
     }
-    fprintf(output, "append() %lf %f %lf\n",orig_sum_a / 100.0, opt_sum_a / 100.0, opt_sum2_a / 100.0);
-    fprintf(output, "findName() %lf %lf %f", orig_sum_f / 100.0, opt_sum_f / 100.0, opt_sum2_f / 100.0);
+    fprintf(output, "append() %.4f %.4f %.4f\n",orig_sum_a / 100.0, opt_sum_a / 100.0, opt_sum2_a / 100.0);
+    fprintf(output, "findName() %.4f %.4f %.4f", orig_sum_f / 100.0, opt_sum_f / 100.0, opt_sum2_f / 100.0);
     fclose(output);
     fclose(fp);
 
