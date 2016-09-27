@@ -33,12 +33,12 @@ entry **append(char lastName[], entry **hash_table)
     e->pNext = NULL;
     strcpy(e->lastName, lastName);
     int loc = hash(lastName);
-    
-/*  Version 1 append immediately  */
+
+    /*  Version 1 append immediately  */
 //    e->pNext = hash_table[loc];
 //    hash_table[loc] = e;
 
-/*  Version 2 append at the end of lined list  */  
+    /*  Version 2 append at the end of lined list  */
     if(hash_table[loc] == NULL)
         hash_table[loc] = e;
     else {
